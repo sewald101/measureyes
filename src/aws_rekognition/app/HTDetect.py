@@ -194,6 +194,7 @@ class HTDetect(object):
  Total HTs Detected: {:_>12}
 
  Head-Turn Rate: {:_>16.3f}
+ 
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  Source Video ID: {}
  Head xTurn Parameters:
