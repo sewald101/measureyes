@@ -1,6 +1,6 @@
 
 /* Create web backend master db */
-CREATE TABLE rekmaster (
+CREATE TABLE measureyes_0924_01 (
   video VARCHAR,
   source_file VARCHAR,
   timestamp INT, -- video timestamp in milliseconds from start
@@ -14,5 +14,5 @@ CREATE TABLE rekmaster (
 
 /* Write response table to csv */
 COPY measureyes_0924_01
-TO '/Users/sewald101/Google Drive/Documents/Career- Steve/Education/Data Science/projects/measureyes/data/measureyes_0924_01.csv'
+TO '<your path>/measureyes_0924_01.csv'
 DELIMITER ',' CSV HEADER;
