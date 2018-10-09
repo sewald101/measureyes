@@ -1,5 +1,7 @@
 """
-Detect and aggregate statistics on Head Turns (HTs)
+Identify and tabulate distinct head-turns (HTs) from raw computer-vision data
+based on specified pose, dwell and 'break' thresholds. Aggregate statistics
+on HT responses including HT counts and head-turn rate (HTR).
 """
 
 import numpy as np
@@ -50,7 +52,7 @@ class HTDetect(object):
 
 
     def main(self, yaw_threshold=45, pitch_threshold=45, dwell_threshold=1.5,
-             HT_break=1.5, print=False):
+             HT_break=1.5, print_results=False):
         """Identify and tabulate distinct head-turns (HTs) from raw computer-vision data
         based on specified pose, dwell and 'break' thresholds.
 
@@ -64,7 +66,7 @@ class HTDetect(object):
             HT_break=1.5: (float) minimum seconds constituting a break between multiple
                           views or HTs performed by a single viewer; breaks below
                           `HT_break` are ignored when counting a single, continuous HT
-            print=False: (bool) If True, print a summary of HT detection results.
+            print_results=False: (bool) If True, print a summary of HT detection results.
         """
         # Disable Pandas SettingWithCopy error:
         # see https://stackoverflow.com/questions/42105859/pandas-map-to-a-new-column-settingwithcopywarning
@@ -79,36 +81,9 @@ class HTDetect(object):
         self._pose_filter(yaw_threshold, pitch_threshold)
         self._build_HT_df(dwell_threshold, HT_break)
 
-        if print:
+        if print_results:
             self._print_results(yaw_threshold, pitch_threshold, dwell_threshold,
             HT_break)
-
-
-    def _print_results(self, yaw_threshold=45, pitch_threshold=45, dwell_threshold=1.5,
-             HT_break=1.5):
-         print("""
- Source ID: {}
- Total Persons Detected: {}
- Total HTs Detected: {}
- Total Distinct HTers: {}
- Head-Turn Rate: {:.3f}
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- Head xTurn Parameters:
-     Yaw Threshold (max allowable face angle left or right of camera): {} degrees
-     Pitch Threshold (max allowable angle up or down from camera): {} degrees
-     Minimum dwell to qualify: {} seconds
-     Minimum duration (break) between multiple HTs by single person: {} seconds
- """.format(self.source,
-            self.ttl_persons,
-            len(self.HTs_df),
-            self.HTers,
-            self.HTers / self.ttl_persons,
-            yaw_threshold,
-            pitch_threshold,
-            dwell_threshold,
-            HT_break
-            )
-        )
 
 
     def _get_all_records(self):
@@ -209,6 +184,34 @@ class HTDetect(object):
 
         # Filter individual HT table by dwell threshold
         return df_HTs[df_HTs['HT_dwell'] >= dwell_threshold]
+
+
+    def _print_results(self, yaw_threshold=45, pitch_threshold=45, dwell_threshold=1.5,
+             HT_break=1.5):
+         print("""
+ Total Persons Detected: {:_>8}
+ Total HTers: {:_>19}
+ Total HTs Detected: {:_>12}
+
+ Head-Turn Rate: {:_>16.3f}
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ Source Video ID: {}
+ Head xTurn Parameters:
+     Yaw Threshold (max allowable face angle left or right of camera): {} degrees
+     Pitch Threshold (max allowable angle up or down from camera): {} degrees
+     Minimum dwell to qualify: {} seconds
+     Minimum duration (break) between multiple HTs by single person: {} seconds
+ """.format(self.ttl_persons,
+            self.HTers,
+            len(self.HTs_df),
+            self.HTers / self.ttl_persons,
+            self.source,
+            yaw_threshold,
+            pitch_threshold,
+            dwell_threshold,
+            HT_break
+            )
+        )
 
 
 
