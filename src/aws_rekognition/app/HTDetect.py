@@ -194,10 +194,10 @@ class HTDetect(object):
  Total HTs Detected: {:_>12}
 
  Head-Turn Rate: {:_>16.3f}
- 
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  Source Video ID: {}
- Head xTurn Parameters:
+ Head-Turn Parameters:
      Yaw Threshold (max allowable face angle left or right of camera): {} degrees
      Pitch Threshold (max allowable angle up or down from camera): {} degrees
      Minimum dwell to qualify: {} seconds
