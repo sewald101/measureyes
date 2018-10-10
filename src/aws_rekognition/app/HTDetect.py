@@ -189,19 +189,19 @@ class HTDetect(object):
     def _print_results(self, yaw_threshold=45, pitch_threshold=45, dwell_threshold=1.5,
              HT_break=1.5):
          print("""
- Total Persons Detected: {:_>8}
- Total HTers: {:_>19}
- Total HTs Detected: {:_>12}
+ Total Persons Detected: {0:_>8}
+ Total HTers: {1:_>19}
+ Total HTs Detected: {2:_>12}
 
- Head-Turn Rate: {:_>16.3f}
+ Head-Turn Rate: {3:_>16.3f}
 
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- Source Video ID: {}
+ Source Video ID: {4}
  Head-Turn Parameters:
-     Yaw Threshold (max allowable face angle left or right of camera): {} degrees
-     Pitch Threshold (max allowable angle up or down from camera): {} degrees
-     Minimum dwell to qualify: {} seconds
-     Minimum duration (break) between multiple HTs by single person: {} seconds
+     Yaw Threshold (max allowable face angle left or right of camera): {5} degrees
+     Pitch Threshold (max allowable angle up or down from camera): {6} degrees
+     Minimum dwell to qualify: {7} seconds
+     Minimum duration (break) between multiple HTs by single person: {8} seconds
  """.format(self.ttl_persons,
             self.HTers,
             len(self.HTs_df),
